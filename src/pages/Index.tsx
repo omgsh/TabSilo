@@ -292,6 +292,12 @@ const Index = () => {
             >
               Download .zip
             </button>
+            <button
+              onClick={downloadStoreListing}
+              className="rounded-xl border border-border bg-secondary px-6 py-3 text-sm font-medium hover:bg-secondary/70 md:col-start-2"
+            >
+              Download Store Listing (.md)
+            </button>
           </div>
         </div>
       </section>
