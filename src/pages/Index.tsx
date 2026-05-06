@@ -298,7 +298,7 @@ const Index = () => {
       </section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Made with care for over-tabbed humans.
+        Made with care for over-tabbed humans. · <a href="/privacy" className="underline hover:text-foreground">Privacy Policy</a>
       </footer>
     </div>
   );
