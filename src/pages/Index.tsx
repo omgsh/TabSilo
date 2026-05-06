@@ -68,6 +68,22 @@ function downloadExtension() {
     .catch((e) => alert(e.message));
 }
 
+function downloadStoreListing() {
+  fetch("/STORE_LISTING.md")
+    .then((r) => {
+      if (!r.ok) throw new Error(`Download failed: ${r.status}`);
+      return r.blob();
+    })
+    .then((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "STORE_LISTING.md";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch((e) => alert(e.message));
+}
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
