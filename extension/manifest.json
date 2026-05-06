@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "TabVault — Tab Manager & Suspender",
+  "version": "1.0.0",
+  "description": "Free up memory: collapse all tabs into a single list, restore them anytime, and auto-suspend inactive tabs.",
+  "permissions": ["tabs", "storage", "contextMenus", "alarms"],
+  "action": {
+    "default_title": "TabVault — Send all tabs here",
+    "default_icon": {
+      "16": "icons/icon.png",
+      "48": "icons/icon.png",
+      "128": "icons/icon.png"
+    }
+  },
+  "background": { "service_worker": "background.js" },
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  }
+}
