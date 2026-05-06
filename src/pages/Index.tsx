@@ -68,22 +68,6 @@ function downloadExtension() {
     .catch((e) => alert(e.message));
 }
 
-function downloadStoreListing() {
-  fetch("/STORE_LISTING.md")
-    .then((r) => {
-      if (!r.ok) throw new Error(`Download failed: ${r.status}`);
-      return r.blob();
-    })
-    .then((blob) => {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "STORE_LISTING.md";
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch((e) => alert(e.message));
-}
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
@@ -292,12 +276,6 @@ const Index = () => {
             >
               Download .zip
             </button>
-            <button
-              onClick={downloadStoreListing}
-              className="rounded-xl border border-border bg-secondary px-6 py-3 text-sm font-medium hover:bg-secondary/70 md:col-start-2"
-            >
-              Download Store Listing (.md)
-            </button>
           </div>
         </div>
       </section>
@@ -320,7 +298,7 @@ const Index = () => {
       </section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Made with care for over-tabbed humans.
+        Made with care for over-tabbed humans. · <a href="/privacy" className="underline hover:text-foreground">Privacy Policy</a>
       </footer>
     </div>
   );
