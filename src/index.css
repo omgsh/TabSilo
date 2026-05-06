@@ -8,8 +8,18 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 33% 98%;
+    --foreground: 222 47% 11%;
+
+    --brand: 222 89% 55%;
+    --brand-foreground: 0 0% 100%;
+    --brand-glow: 217 91% 65%;
+    --accent-2: 158 64% 52%;
+    --gradient-hero: linear-gradient(135deg, hsl(222 89% 55%) 0%, hsl(258 90% 66%) 100%);
+    --gradient-soft: radial-gradient(1200px 600px at 80% -10%, hsl(217 91% 90% / 0.7), transparent 60%),
+                     radial-gradient(900px 500px at -10% 10%, hsl(258 90% 92% / 0.7), transparent 60%);
+    --shadow-elegant: 0 20px 50px -20px hsl(222 89% 55% / 0.35);
+    --shadow-card: 0 1px 2px hsl(222 47% 11% / 0.04), 0 12px 40px -16px hsl(222 47% 11% / 0.08);
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
