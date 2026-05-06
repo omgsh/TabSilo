@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Condense all tabs into a searchable list, group them into workspaces, freeze inactive tabs to save RAM.",
   "permissions": ["tabs", "storage", "contextMenus", "alarms"],
+  "host_permissions": ["https://extensionpay.com/*"],
   "action": {
     "default_title": "Tab Vault Pro — Condense all tabs",
     "default_icon": {
