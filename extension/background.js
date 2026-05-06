@@ -1,7 +1,25 @@
-// TabVault background service worker
+// Tab Vault Pro background service worker
+importScripts('ExtPay.js');
+const extpay = ExtPay('tab-vault-pro');
+extpay.startBackground();
+
 const VAULT_KEY = "tabvault_groups";
 const SETTINGS_KEY = "tabvault_settings";
 const DEFAULT_SETTINGS = { autoSuspendMinutes: 30, suspendEnabled: true };
+const FREE_TAB_LIMIT = 20;
+
+async function isPaid() {
+  try {
+    const user = await ExtPay('tab-vault-pro').getUser();
+    return !!user.paid;
+  } catch { return false; }
+}
+
+async function countSavedTabs() {
+  const { [VAULT_KEY]: existing } = await chrome.storage.local.get(VAULT_KEY);
+  const groups = Array.isArray(existing) ? existing : [];
+  return groups.reduce((n, g) => n + (g.tabs?.length || 0), 0);
+}
 
 async function getSettings() {
   const { [SETTINGS_KEY]: s } = await chrome.storage.local.get(SETTINGS_KEY);
@@ -41,11 +59,23 @@ async function stashAllTabs() {
     await openVault();
     return;
   }
+  const paid = await isPaid();
+  const current = await countSavedTabs();
+  let toSave = stashable;
+  if (!paid) {
+    const remaining = Math.max(0, FREE_TAB_LIMIT - current);
+    if (remaining === 0) {
+      await openVault();
+      ExtPay('tab-vault-pro').openPaymentPage();
+      return;
+    }
+    toSave = stashable.slice(0, remaining);
+  }
   const group = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     name: "",
-    tabs: stashable.map((t) => ({
+    tabs: toSave.map((t) => ({
       url: t.url,
       title: t.title || t.url,
       favIconUrl: t.favIconUrl || "",
@@ -56,7 +86,10 @@ async function stashAllTabs() {
   groups.unshift(group);
   await chrome.storage.local.set({ [VAULT_KEY]: groups });
   await openVault();
-  await chrome.tabs.remove(stashable.map((t) => t.id));
+  await chrome.tabs.remove(toSave.map((t) => t.id));
+  if (!paid && toSave.length < stashable.length) {
+    ExtPay('tab-vault-pro').openPaymentPage();
+  }
 }
 
 chrome.action.onClicked.addListener(() => {
@@ -103,11 +136,19 @@ async function stashTabs(tabs) {
       !t.url.startsWith("chrome-extension://")
   );
   if (!stashable.length) return openVault();
+  const paid = await isPaid();
+  const current = await countSavedTabs();
+  let toSave = stashable;
+  if (!paid) {
+    const remaining = Math.max(0, FREE_TAB_LIMIT - current);
+    if (remaining === 0) { await openVault(); ExtPay('tab-vault-pro').openPaymentPage(); return; }
+    toSave = stashable.slice(0, remaining);
+  }
   const group = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     name: "",
-    tabs: stashable.map((t) => ({
+    tabs: toSave.map((t) => ({
       url: t.url,
       title: t.title || t.url,
       favIconUrl: t.favIconUrl || "",
@@ -118,7 +159,8 @@ async function stashTabs(tabs) {
   groups.unshift(group);
   await chrome.storage.local.set({ [VAULT_KEY]: groups });
   await openVault();
-  await chrome.tabs.remove(stashable.map((t) => t.id));
+  await chrome.tabs.remove(toSave.map((t) => t.id));
+  if (!paid && toSave.length < stashable.length) ExtPay('tab-vault-pro').openPaymentPage();
 }
 
 // ===== Auto-suspend (discard) inactive tabs =====
@@ -152,6 +194,17 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   (async () => {
     if (msg.type === "stashAll") { await stashAllTabs(); sendResponse({ ok: true }); }
     if (msg.type === "openVault") { await openVault(); sendResponse({ ok: true }); }
+    if (msg.type === "openPayment") { ExtPay('tab-vault-pro').openPaymentPage(); sendResponse({ ok: true }); }
+    if (msg.type === "openLogin") { ExtPay('tab-vault-pro').openLoginPage(); sendResponse({ ok: true }); }
+    if (msg.type === "getUser") {
+      try { const u = await ExtPay('tab-vault-pro').getUser(); sendResponse({ ok: true, user: { paid: !!u.paid, email: u.email || null } }); }
+      catch (e) { sendResponse({ ok: false, error: String(e) }); }
+    }
+    if (msg.type === "checkLimit") {
+      const paid = await isPaid();
+      const count = await countSavedTabs();
+      sendResponse({ ok: true, paid, count, limit: FREE_TAB_LIMIT, atLimit: !paid && count >= FREE_TAB_LIMIT });
+    }
   })();
   return true;
 });
