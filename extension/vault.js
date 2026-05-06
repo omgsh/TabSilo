@@ -5,6 +5,8 @@ const DEFAULT_SETTINGS = { autoSuspendMinutes: 30, suspendEnabled: true };
 const groupsEl = document.getElementById("groups");
 const statsEl = document.getElementById("stats");
 const tpl = document.getElementById("group-tpl");
+const searchEl = document.getElementById("search");
+let searchQuery = "";
 
 async function loadGroups() {
   const { [VAULT_KEY]: g } = await chrome.storage.local.get(VAULT_KEY);
@@ -24,27 +26,56 @@ function fmtDate(ts) {
   return d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
+function highlight(text, q) {
+  if (!q) return text;
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if (idx < 0) return text;
+  return [text.slice(0, idx), Object.assign(document.createElement("mark"), { className: "hl", textContent: text.slice(idx, idx + q.length) }), text.slice(idx + q.length)];
+}
+
 async function render() {
   const groups = await loadGroups();
   groupsEl.innerHTML = "";
   const totalTabs = groups.reduce((n, g) => n + g.tabs.length, 0);
-  statsEl.innerHTML = `<div><strong>${groups.length}</strong> group${groups.length === 1 ? "" : "s"}</div>
-    <div><strong>${totalTabs}</strong> stashed tab${totalTabs === 1 ? "" : "s"}</div>
-    <div>Click a tab to restore it. Click <em>Restore all</em> to bring back the whole group.</div>`;
+  const q = searchQuery.trim().toLowerCase();
+  const filtered = q
+    ? groups
+        .map((g) => ({
+          ...g,
+          tabs: g.tabs.filter(
+            (t) =>
+              (t.title || "").toLowerCase().includes(q) ||
+              (t.url || "").toLowerCase().includes(q) ||
+              (g.name || "").toLowerCase().includes(q)
+          ),
+        }))
+        .filter((g) => g.tabs.length)
+    : groups;
+  const matchCount = filtered.reduce((n, g) => n + g.tabs.length, 0);
+  statsEl.innerHTML = q
+    ? `<div><strong>${matchCount}</strong> match${matchCount === 1 ? "" : "es"} for “${q}”</div>
+       <div>across <strong>${filtered.length}</strong> workspace${filtered.length === 1 ? "" : "s"}</div>`
+    : `<div><strong>${groups.length}</strong> workspace${groups.length === 1 ? "" : "s"}</div>
+       <div><strong>${totalTabs}</strong> saved tab${totalTabs === 1 ? "" : "s"}</div>
+       <div>Click a tab to restore it. Name a workspace to organize your projects.</div>`;
 
   if (!groups.length) {
     groupsEl.innerHTML = `<div class="empty">
       <h2>Your vault is empty</h2>
-      <p>Click <strong>Stash all open tabs</strong> or the toolbar icon to collapse your tabs into a tidy list.</p>
+      <p>Click <strong>Condense all tabs</strong> or the toolbar icon to collapse your tabs into a tidy workspace.</p>
     </div>`;
     return;
   }
+  if (!filtered.length) {
+    groupsEl.innerHTML = `<div class="empty"><h2>No matches</h2><p>No saved tabs match “${q}”.</p></div>`;
+    return;
+  }
 
-  for (const group of groups) {
+  for (const group of filtered) {
     const node = tpl.content.firstElementChild.cloneNode(true);
     const nameInput = node.querySelector(".group-name");
     nameInput.value = group.name || "";
-    nameInput.placeholder = `Stashed ${fmtDate(group.createdAt)}`;
+    nameInput.placeholder = `Workspace · ${fmtDate(group.createdAt)}`;
     nameInput.addEventListener("change", async () => {
       const all = await loadGroups();
       const idx = all.findIndex((g) => g.id === group.id);
@@ -69,7 +100,9 @@ async function render() {
       img.src = tab.favIconUrl || "icons/icon.png";
       img.onerror = () => { img.src = "icons/icon.png"; };
       const a = document.createElement("a");
-      a.href = tab.url; a.textContent = tab.title || tab.url; a.target = "_blank"; a.rel = "noopener";
+      a.href = tab.url; a.target = "_blank"; a.rel = "noopener";
+      const parts = highlight(tab.title || tab.url, q);
+      if (Array.isArray(parts)) parts.forEach((p) => a.append(p)); else a.textContent = parts;
       a.addEventListener("click", async (e) => {
         e.preventDefault();
         await chrome.tabs.create({ url: tab.url, active: true });
@@ -110,6 +143,23 @@ async function restoreGroup(groupId, removeAfter) {
 
 document.getElementById("stash-all").addEventListener("click", () => {
   chrome.runtime.sendMessage({ type: "stashAll" }, () => setTimeout(render, 300));
+});
+document.getElementById("freeze-all").addEventListener("click", async () => {
+  const tabs = await chrome.tabs.query({ active: false, discarded: false, audible: false });
+  let n = 0;
+  for (const t of tabs) {
+    if (t.pinned) continue;
+    if (!t.url || t.url.startsWith("chrome://") || t.url.startsWith("chrome-extension://")) continue;
+    try { await chrome.tabs.discard(t.id); n++; } catch {}
+  }
+  alert(`Froze ${n} inactive tab${n === 1 ? "" : "s"} to save RAM.`);
+});
+searchEl.addEventListener("input", (e) => {
+  searchQuery = e.target.value;
+  render();
+});
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); searchEl.focus(); }
 });
 document.getElementById("restore-all").addEventListener("click", async () => {
   const all = await loadGroups();

@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "TabVault — Tab Manager & Suspender",
+  "name": "Tab Vault Pro — Tab Manager & Suspender",
   "version": "1.0.0",
-  "description": "Free up memory: collapse all tabs into a single list, restore them anytime, and auto-suspend inactive tabs.",
+  "description": "Condense all tabs into a searchable list, group them into workspaces, freeze inactive tabs to save RAM.",
   "permissions": ["tabs", "storage", "contextMenus", "alarms"],
   "action": {
-    "default_title": "TabVault — Send all tabs here",
+    "default_title": "Tab Vault Pro — Condense all tabs",
     "default_icon": {
       "16": "icons/icon.png",
       "48": "icons/icon.png",
