@@ -211,3 +211,29 @@ chrome.storage.onChanged.addListener((changes) => {
 });
 
 render();
+
+// ===== ExtensionPay UI =====
+function send(msg) {
+  return new Promise((res) => chrome.runtime.sendMessage(msg, res));
+}
+async function refreshPayUI() {
+  const upgradeBtn = document.getElementById("upgrade");
+  const proBadge = document.getElementById("pro-badge");
+  const banner = document.getElementById("limit-banner");
+  const limitCount = document.getElementById("limit-count");
+  const status = await send({ type: "checkLimit" });
+  if (!status?.ok) return;
+  if (status.paid) {
+    upgradeBtn.hidden = true; proBadge.hidden = false; banner.hidden = true;
+  } else {
+    upgradeBtn.hidden = false; proBadge.hidden = true;
+    banner.hidden = false;
+    limitCount.textContent = status.count;
+    banner.style.borderColor = status.atLimit ? "rgba(220,38,38,.4)" : "";
+  }
+}
+document.getElementById("upgrade").addEventListener("click", () => send({ type: "openPayment" }));
+document.getElementById("banner-upgrade").addEventListener("click", () => send({ type: "openPayment" }));
+refreshPayUI();
+chrome.storage.onChanged.addListener((c) => { if (c[VAULT_KEY]) refreshPayUI(); });
+window.addEventListener("focus", refreshPayUI);

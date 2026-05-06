@@ -19,8 +19,15 @@
         <button id="export" class="btn btn-ghost">Export</button>
         <button id="import-btn" class="btn btn-ghost">Import</button>
         <input id="import-file" type="file" accept="application/json" hidden />
+        <button id="upgrade" class="btn btn-upgrade" hidden>✨ Upgrade to Pro</button>
+        <span id="pro-badge" class="pro-badge" hidden>PRO</span>
       </div>
     </header>
+
+    <div id="limit-banner" class="limit-banner" hidden>
+      <span><strong id="limit-count">0</strong> / 20 tabs used on the Free plan.</span>
+      <button id="banner-upgrade" class="btn btn-primary btn-sm">Unlock unlimited</button>
+    </div>
 
     <section class="searchbar">
       <input id="search" type="search" placeholder="Search across all your saved tabs…" autofocus />

@@ -59,11 +59,23 @@ async function stashAllTabs() {
     await openVault();
     return;
   }
+  const paid = await isPaid();
+  const current = await countSavedTabs();
+  let toSave = stashable;
+  if (!paid) {
+    const remaining = Math.max(0, FREE_TAB_LIMIT - current);
+    if (remaining === 0) {
+      await openVault();
+      ExtPay('tab-vault-pro').openPaymentPage();
+      return;
+    }
+    toSave = stashable.slice(0, remaining);
+  }
   const group = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     name: "",
-    tabs: stashable.map((t) => ({
+    tabs: toSave.map((t) => ({
       url: t.url,
       title: t.title || t.url,
       favIconUrl: t.favIconUrl || "",
@@ -74,7 +86,10 @@ async function stashAllTabs() {
   groups.unshift(group);
   await chrome.storage.local.set({ [VAULT_KEY]: groups });
   await openVault();
-  await chrome.tabs.remove(stashable.map((t) => t.id));
+  await chrome.tabs.remove(toSave.map((t) => t.id));
+  if (!paid && toSave.length < stashable.length) {
+    ExtPay('tab-vault-pro').openPaymentPage();
+  }
 }
 
 chrome.action.onClicked.addListener(() => {
@@ -121,11 +136,19 @@ async function stashTabs(tabs) {
       !t.url.startsWith("chrome-extension://")
   );
   if (!stashable.length) return openVault();
+  const paid = await isPaid();
+  const current = await countSavedTabs();
+  let toSave = stashable;
+  if (!paid) {
+    const remaining = Math.max(0, FREE_TAB_LIMIT - current);
+    if (remaining === 0) { await openVault(); ExtPay('tab-vault-pro').openPaymentPage(); return; }
+    toSave = stashable.slice(0, remaining);
+  }
   const group = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     name: "",
-    tabs: stashable.map((t) => ({
+    tabs: toSave.map((t) => ({
       url: t.url,
       title: t.title || t.url,
       favIconUrl: t.favIconUrl || "",
@@ -136,7 +159,8 @@ async function stashTabs(tabs) {
   groups.unshift(group);
   await chrome.storage.local.set({ [VAULT_KEY]: groups });
   await openVault();
-  await chrome.tabs.remove(stashable.map((t) => t.id));
+  await chrome.tabs.remove(toSave.map((t) => t.id));
+  if (!paid && toSave.length < stashable.length) ExtPay('tab-vault-pro').openPaymentPage();
 }
 
 // ===== Auto-suspend (discard) inactive tabs =====
