@@ -69,8 +69,8 @@ const Index = () => {
           <a href="#install" className="hover:text-foreground">Install</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </nav>
-        <button
-          onClick={downloadExtension}
+        <a
+          href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
           className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
           style={{ background: "var(--gradient-hero)" }}
         >
@@ -98,8 +98,8 @@ const Index = () => {
             freeing memory, syncing across devices, and giving Chrome its speed back.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <button
-              onClick={downloadExtension}
+            <a
+              href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
               className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
@@ -215,8 +215,8 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={downloadExtension}
+              <a
+                href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
                 className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
                   t.highlight
                     ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
@@ -256,8 +256,8 @@ const Index = () => {
                 ))}
               </ol>
             </div>
-            <button
-              onClick={downloadExtension}
+            <a
+              href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
               className="rounded-xl px-8 py-4 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
