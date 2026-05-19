@@ -66,7 +66,6 @@ const Index = () => {
         <nav className="hidden gap-8 text-sm text-muted-foreground md:flex">
           <a href="#features" className="hover:text-foreground">Features</a>
           <a href="#pricing" className="hover:text-foreground">Pricing</a>
-          <a href="#install" className="hover:text-foreground">Install</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </nav>
         <a
@@ -228,42 +227,6 @@ const Index = () => {
               </a>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section id="install" className="container mx-auto py-16">
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-card)] md:p-12">
-          <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight">Install in 30 seconds</h2>
-              <ol className="mt-6 space-y-3 text-sm">
-                {[
-                  "Download the Tab Vault Pro zip and unzip it.",
-                  <>Open <code className="rounded bg-secondary px-1.5 py-0.5">chrome://extensions</code> in your browser.</>,
-                  "Toggle Developer mode in the top-right.",
-                  "Click Load unpacked and select the unzipped folder.",
-                  "Pin Tab Vault Pro. Click the icon to condense all tabs.",
-                ].map((step, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span
-                      className="flex h-6 w-6 flex-none items-center justify-center rounded-full text-xs font-semibold text-[hsl(var(--brand-foreground))]"
-                      style={{ background: "var(--gradient-hero)" }}
-                    >
-                      {i + 1}
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <a
-              href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
-              className="rounded-xl px-8 py-4 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
-              style={{ background: "var(--gradient-hero)" }}
-            >
-              Download .zip
-            </a>
-          </div>
         </div>
       </section>
 
