@@ -75,7 +75,7 @@ const Index = () => {
           style={{ background: "var(--gradient-hero)" }}
         >
           Download
-        </button>
+        </a>
       </header>
 
       <section className="container mx-auto grid gap-12 py-20 md:grid-cols-2 md:items-center md:py-28">
@@ -104,7 +104,7 @@ const Index = () => {
               style={{ background: "var(--gradient-hero)" }}
             >
               Download free
-            </button>
+            </a>
             <a
               href="#pricing"
               className="rounded-xl border border-border bg-card px-6 py-3 text-base font-semibold transition hover:bg-secondary"
@@ -225,7 +225,7 @@ const Index = () => {
                 style={t.highlight ? { background: "var(--gradient-hero)" } : undefined}
               >
                 {t.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>
@@ -262,7 +262,7 @@ const Index = () => {
               style={{ background: "var(--gradient-hero)" }}
             >
               Download .zip
-            </button>
+            </a>
           </div>
         </div>
       </section>
