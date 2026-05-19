@@ -52,20 +52,11 @@ const tiers = [
   },
 ];
 
+const CHROME_STORE_URL =
+  "https://chromewebstore.google.com/detail/tab-vault-pro-%E2%80%94-tab-manag/fkifabjdepbgcajbphnmbhllikdkampa";
+
 function downloadExtension() {
-  fetch("/tabvault.zip")
-    .then((r) => {
-      if (!r.ok) throw new Error(`Download failed: ${r.status}`);
-      return r.blob();
-    })
-    .then((blob) => {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "tabvault.zip";
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch((e) => alert(e.message));
+  window.open(CHROME_STORE_URL, "_blank", "noopener,noreferrer");
 }
 
 const Index = () => {
