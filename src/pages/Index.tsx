@@ -55,10 +55,6 @@ const tiers = [
 const CHROME_STORE_URL =
   "https://chromewebstore.google.com/detail/tab-vault-pro-%E2%80%94-tab-manag/fkifabjdepbgcajbphnmbhllikdkampa";
 
-function downloadExtension() {
-  window.open(CHROME_STORE_URL, "_blank", "noopener,noreferrer");
-}
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
