@@ -1,4 +1,4 @@
-// Tab Vault Pro background service worker
+// Tab Silo background service worker
 importScripts('ExtPay.js');
 const extpay = ExtPay('tab-silo');
 extpay.startBackground();
@@ -99,17 +99,17 @@ chrome.action.onClicked.addListener(() => {
 chrome.runtime.onInstalled.addListener(async () => {
   chrome.contextMenus.create({
     id: "tabvault-open",
-    title: "Open TabVault",
+    title: "Open Tab Silo",
     contexts: ["action"],
   });
   chrome.contextMenus.create({
     id: "tabvault-stash-current",
-    title: "Send only this tab to TabVault",
+    title: "Send only this tab to Tab Silo",
     contexts: ["action"],
   });
   chrome.contextMenus.create({
     id: "tabvault-stash-others",
-    title: "Send other tabs to TabVault",
+    title: "Send other tabs to Tab Silo",
     contexts: ["action"],
   });
   await chrome.alarms.create("tabvault-suspend-check", { periodInMinutes: 1 });
