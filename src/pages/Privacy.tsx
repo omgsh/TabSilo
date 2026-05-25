@@ -9,7 +9,7 @@ const Privacy = () => {
         <div className="prose prose-neutral mt-10 max-w-none space-y-6 text-sm leading-relaxed">
           <section>
             <h2 className="text-xl font-semibold">Summary</h2>
-            <p>Tab Vault Pro is a Chrome extension that helps you save, organize, and restore browser tabs. We collect the minimum data required to make the product work. The Free tier stores everything locally on your device. The Pro tier additionally stores your saved tabs in our sync backend so they appear across your devices. We never sell your data.</p>
+            <p>Tab Silo is a Chrome extension that helps you save, organize, and restore browser tabs. We collect the minimum data required to make the product work. The Free tier stores everything locally on your device. The Pro tier additionally stores your saved tabs in our sync backend so they appear across your devices. We never sell your data.</p>
           </section>
 
           <section>
@@ -63,7 +63,7 @@ const Privacy = () => {
 
           <section>
             <h2 className="text-xl font-semibold">Children</h2>
-            <p>Tab Vault Pro is not directed to children under 13 and we do not knowingly collect data from them.</p>
+            <p>Tab Silo is not directed to children under 13 and we do not knowingly collect data from them.</p>
           </section>
 
           <section>
@@ -73,7 +73,7 @@ const Privacy = () => {
 
           <section>
             <h2 className="text-xl font-semibold">Contact</h2>
-            <p>Questions or data requests: <a className="underline" href="mailto:privacy@tabvaultpro.app">privacy@tabvaultpro.app</a>.</p>
+            <p>Questions or data requests: <a className="underline" href="mailto:privacy@tabsilo.com">privacy@tabsilo.com</a>.</p>
           </section>
         </div>
       </main>
