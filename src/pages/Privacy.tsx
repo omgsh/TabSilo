@@ -73,7 +73,7 @@ const Privacy = () => {
 
           <section>
             <h2 className="text-xl font-semibold">Contact</h2>
-            <p>Questions or data requests: <a className="underline" href="mailto:privacy@tabsilo.com">privacy@tabsilo.com</a>.</p>
+            <p>Questions or data requests: <a className="underline" href="mailto:contact@fiercebuilds.com">contact@fiercebuilds.com</a>.</p>
           </section>
         </div>
       </main>
