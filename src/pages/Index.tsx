@@ -287,7 +287,7 @@ const Index = () => {
             { q: "Does Tab Vault Pro upload my browsing data?", a: "Free tier is 100% local. Pro stores an encrypted copy in the cloud only so it can sync across your devices." },
             { q: "How is it different from OneTab?", a: "Same core idea — condense tabs into a list — plus named workspaces, fuzzy search, freeze, and cross-device sync." },
             { q: "What happens at the 20-tab limit?", a: "On Free, the oldest workspaces are read-only once you pass 20 saved tabs. Upgrade to Pro or Lifetime for unlimited storage." },
-            { q: "Why not in the Chrome Web Store?", a: "This is a side-loaded build. Load it via chrome://extensions → Load unpacked." },
+            { q: "Which browsers are supported?", a: "Tab Vault Pro works on Chrome, Edge, Brave, Arc, and Opera — anywhere Chrome extensions run." },
           ].map((f) => (
             <div key={f.q} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="font-semibold">{f.q}</h3>
