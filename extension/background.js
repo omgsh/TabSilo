@@ -1,6 +1,6 @@
 // Tab Vault Pro background service worker
 importScripts('ExtPay.js');
-const extpay = ExtPay('tab-vault-pro');
+const extpay = ExtPay('tab-silo');
 extpay.startBackground();
 
 const VAULT_KEY = "tabvault_groups";
@@ -10,7 +10,7 @@ const FREE_TAB_LIMIT = 20;
 
 async function isPaid() {
   try {
-    const user = await ExtPay('tab-vault-pro').getUser();
+    const user = await ExtPay('tab-silo').getUser();
     return !!user.paid;
   } catch { return false; }
 }
@@ -66,7 +66,7 @@ async function stashAllTabs() {
     const remaining = Math.max(0, FREE_TAB_LIMIT - current);
     if (remaining === 0) {
       await openVault();
-      ExtPay('tab-vault-pro').openPaymentPage();
+      ExtPay('tab-silo').openPaymentPage();
       return;
     }
     toSave = stashable.slice(0, remaining);
@@ -88,7 +88,7 @@ async function stashAllTabs() {
   await openVault();
   await chrome.tabs.remove(toSave.map((t) => t.id));
   if (!paid && toSave.length < stashable.length) {
-    ExtPay('tab-vault-pro').openPaymentPage();
+    ExtPay('tab-silo').openPaymentPage();
   }
 }
 
@@ -141,7 +141,7 @@ async function stashTabs(tabs) {
   let toSave = stashable;
   if (!paid) {
     const remaining = Math.max(0, FREE_TAB_LIMIT - current);
-    if (remaining === 0) { await openVault(); ExtPay('tab-vault-pro').openPaymentPage(); return; }
+    if (remaining === 0) { await openVault(); ExtPay('tab-silo').openPaymentPage(); return; }
     toSave = stashable.slice(0, remaining);
   }
   const group = {
@@ -160,7 +160,7 @@ async function stashTabs(tabs) {
   await chrome.storage.local.set({ [VAULT_KEY]: groups });
   await openVault();
   await chrome.tabs.remove(toSave.map((t) => t.id));
-  if (!paid && toSave.length < stashable.length) ExtPay('tab-vault-pro').openPaymentPage();
+  if (!paid && toSave.length < stashable.length) ExtPay('tab-silo').openPaymentPage();
 }
 
 // ===== Auto-suspend (discard) inactive tabs =====
@@ -194,10 +194,10 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   (async () => {
     if (msg.type === "stashAll") { await stashAllTabs(); sendResponse({ ok: true }); }
     if (msg.type === "openVault") { await openVault(); sendResponse({ ok: true }); }
-    if (msg.type === "openPayment") { ExtPay('tab-vault-pro').openPaymentPage(); sendResponse({ ok: true }); }
-    if (msg.type === "openLogin") { ExtPay('tab-vault-pro').openLoginPage(); sendResponse({ ok: true }); }
+    if (msg.type === "openPayment") { ExtPay('tab-silo').openPaymentPage(); sendResponse({ ok: true }); }
+    if (msg.type === "openLogin") { ExtPay('tab-silo').openLoginPage(); sendResponse({ ok: true }); }
     if (msg.type === "getUser") {
-      try { const u = await ExtPay('tab-vault-pro').getUser(); sendResponse({ ok: true, user: { paid: !!u.paid, email: u.email || null } }); }
+      try { const u = await ExtPay('tab-silo').getUser(); sendResponse({ ok: true, user: { paid: !!u.paid, email: u.email || null } }); }
       catch (e) { sendResponse({ ok: false, error: String(e) }); }
     }
     if (msg.type === "checkLimit") {
