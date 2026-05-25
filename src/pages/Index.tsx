@@ -102,6 +102,21 @@ const tiers = [
 ];
 
 const Index = () => {
+  const downloadExtension = () => {
+    fetch("/tabvault.zip")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+        return res.blob();
+      })
+      .then((blob) => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "tabvault.zip";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      })
+      .catch((err) => alert(err.message));
+  };
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
       <header className="container mx-auto flex items-center justify-between py-6">
@@ -116,11 +131,11 @@ const Index = () => {
         </nav>
         <button
           type="button"
-          disabled
-          className="cursor-not-allowed rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] opacity-60 shadow-[var(--shadow-elegant)]"
+          onClick={downloadExtension}
+          className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
           style={{ background: "var(--gradient-hero)" }}
         >
-          Coming soon
+          Download
         </button>
       </header>
 
@@ -146,11 +161,11 @@ const Index = () => {
           <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
-              disabled
-              className="cursor-not-allowed rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] opacity-60 shadow-[var(--shadow-elegant)]"
+              onClick={downloadExtension}
+              className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
-              Coming soon
+              Download free
             </button>
             <a
               href="#pricing"
