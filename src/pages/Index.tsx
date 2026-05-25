@@ -1,5 +1,5 @@
 import iconUrl from "@/assets/tabvault-icon.png";
-import { Check, Search, Layers, Snowflake, Cloud } from "lucide-react";
+import { Check, Search, Layers, Snowflake, Cloud, X } from "lucide-react";
 
 const features = [
   {
