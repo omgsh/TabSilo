@@ -12,6 +12,7 @@ import {
   PanelsTopLeft,
   Copy,
   ArrowLeftRight,
+  X,
 } from "lucide-react";
 
 const features = [
