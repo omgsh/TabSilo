@@ -101,9 +101,6 @@ const tiers = [
   },
 ];
 
-const CHROME_STORE_URL =
-  "https://chromewebstore.google.com/detail/tab-vault-pro-%E2%80%94-tab-manag/fkifabjdepbgcajbphnmbhllikdkampa";
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
@@ -117,13 +114,14 @@ const Index = () => {
           <a href="#pricing" className="hover:text-foreground">Pricing</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </nav>
-        <a
-          href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
-          className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
+        <button
+          type="button"
+          disabled
+          className="cursor-not-allowed rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] opacity-60 shadow-[var(--shadow-elegant)]"
           style={{ background: "var(--gradient-hero)" }}
         >
-          Download
-        </a>
+          Coming soon
+        </button>
       </header>
 
       <section className="container mx-auto grid gap-12 py-20 md:grid-cols-2 md:items-center md:py-28">
@@ -146,13 +144,14 @@ const Index = () => {
             freeing memory, syncing across devices, and giving Chrome its speed back.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
-              className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
+            <button
+              type="button"
+              disabled
+              className="cursor-not-allowed rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] opacity-60 shadow-[var(--shadow-elegant)]"
               style={{ background: "var(--gradient-hero)" }}
             >
-              Download free
-            </a>
+              Coming soon
+            </button>
             <a
               href="#pricing"
               className="rounded-xl border border-border bg-card px-6 py-3 text-base font-semibold transition hover:bg-secondary"
@@ -264,17 +263,18 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
-                className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
+              <button
+                type="button"
+                disabled
+                className={`mt-8 w-full cursor-not-allowed rounded-xl px-4 py-3 text-sm font-semibold opacity-60 ${
                   t.highlight
-                    ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
-                    : "border border-border bg-secondary hover:bg-secondary/70"
+                    ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)]"
+                    : "border border-border bg-secondary"
                 }`}
                 style={t.highlight ? { background: "var(--gradient-hero)" } : undefined}
               >
                 {t.cta}
-              </a>
+              </button>
             </div>
           ))}
         </div>
