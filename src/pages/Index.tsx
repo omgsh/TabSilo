@@ -1,21 +1,69 @@
 import iconUrl from "@/assets/tabvault-icon.png";
-import { Check, Search, Layers, Snowflake, Cloud, X } from "lucide-react";
+import {
+  Check,
+  Search,
+  Layers,
+  Snowflake,
+  Cloud,
+  BookmarkCheck,
+  Activity,
+  Wand2,
+  Save,
+  PanelsTopLeft,
+  Copy,
+  ArrowLeftRight,
+} from "lucide-react";
 
 const features = [
+  {
+    title: "Google Drive sync",
+    icon: Cloud,
+    desc: "Access your sessions on any device. Your vault follows you between laptops, desktops, and browsers.",
+  },
+  {
+    title: "Full bookmark manager",
+    icon: BookmarkCheck,
+    desc: "Organize with tags, nested folders, and automatic deduplication. Finally tame years of saved links.",
+  },
+  {
+    title: "Tab health dashboard",
+    icon: Activity,
+    desc: "30-day trends on tab counts, memory use, and stale sessions so you know when it's time to condense.",
+  },
+  {
+    title: "Fuzzy search & smart views",
+    icon: Wand2,
+    desc: "Lightning-fast fuzzy search plus automation rules and saved smart views for the queries you run daily.",
+  },
+  {
+    title: "Save & restore sessions",
+    icon: Save,
+    desc: "Snapshot every open tab to a named, dated workspace. Restore one tab, a group, or the whole thing.",
+  },
+  {
+    title: "Search across open tabs",
+    icon: Search,
+    desc: "Find any tab you have open right now without scrubbing through 200 favicons in the tab bar.",
+  },
+  {
+    title: "Virtual groups & tags",
+    icon: PanelsTopLeft,
+    desc: "Cluster tabs by project, color, or custom tags — without committing to a heavy folder structure.",
+  },
+  {
+    title: "Duplicate detection",
+    icon: Copy,
+    desc: "Spot and close duplicate tabs across windows in one click. Your fan will thank you.",
+  },
+  {
+    title: "Import & export sessions",
+    icon: ArrowLeftRight,
+    desc: "Back up, share, or migrate sessions as portable JSON. Nothing is locked inside Tab Vault.",
+  },
   {
     title: "Condense All — one click",
     icon: Layers,
     desc: "A single button instantly closes every tab and files them into a titled, dated workspace.",
-  },
-  {
-    title: "Lightning-fast search",
-    icon: Search,
-    desc: "Fuzzy search across 500+ saved tabs with instant highlighting. ⌘K from anywhere.",
-  },
-  {
-    title: "Named workspaces",
-    icon: Cloud,
-    desc: "Group tabs into projects like “Taxes 2026” or “Wedding Planning.” Open or archive entire sets.",
   },
   {
     title: "Freeze inactive tabs",
