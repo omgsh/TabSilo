@@ -102,8 +102,8 @@ const tiers = [
 ];
 
 const Index = () => {
-  const downloadExtension = () => {
-    fetch("/tabvault.zip")
+  const downloadExtension = (file: string = "/tabvault.zip", filename: string = "tabvault.zip") => {
+    fetch(file)
       .then((res) => {
         if (!res.ok) throw new Error(`Download failed: ${res.status}`);
         return res.blob();
@@ -111,7 +111,7 @@ const Index = () => {
       .then((blob) => {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "tabvault.zip";
+        a.download = filename;
         a.click();
         URL.revokeObjectURL(a.href);
       })
@@ -280,7 +280,11 @@ const Index = () => {
               </ul>
               <button
                 type="button"
-                onClick={downloadExtension}
+                onClick={() =>
+                  t.name === "Lifetime"
+                    ? downloadExtension("/tabvault-pro.zip", "tabvault-pro-lifetime.zip")
+                    : downloadExtension()
+                }
                 className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
                   t.highlight
                     ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
