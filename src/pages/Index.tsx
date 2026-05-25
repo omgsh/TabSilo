@@ -1,4 +1,4 @@
-import iconUrl from "@/assets/tabvault-icon.png";
+import iconUrl from "@/assets/tabsilo-icon.png";
 import {
   Check,
   Search,
