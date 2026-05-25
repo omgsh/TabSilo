@@ -1,21 +1,69 @@
 import iconUrl from "@/assets/tabvault-icon.png";
-import { Check, Search, Layers, Snowflake, Cloud, X } from "lucide-react";
+import {
+  Check,
+  Search,
+  Layers,
+  Snowflake,
+  Cloud,
+  BookmarkCheck,
+  Activity,
+  Wand2,
+  Save,
+  PanelsTopLeft,
+  Copy,
+  ArrowLeftRight,
+} from "lucide-react";
 
 const features = [
+  {
+    title: "Google Drive sync",
+    icon: Cloud,
+    desc: "Access your sessions on any device. Your vault follows you between laptops, desktops, and browsers.",
+  },
+  {
+    title: "Full bookmark manager",
+    icon: BookmarkCheck,
+    desc: "Organize with tags, nested folders, and automatic deduplication. Finally tame years of saved links.",
+  },
+  {
+    title: "Tab health dashboard",
+    icon: Activity,
+    desc: "30-day trends on tab counts, memory use, and stale sessions so you know when it's time to condense.",
+  },
+  {
+    title: "Fuzzy search & smart views",
+    icon: Wand2,
+    desc: "Lightning-fast fuzzy search plus automation rules and saved smart views for the queries you run daily.",
+  },
+  {
+    title: "Save & restore sessions",
+    icon: Save,
+    desc: "Snapshot every open tab to a named, dated workspace. Restore one tab, a group, or the whole thing.",
+  },
+  {
+    title: "Search across open tabs",
+    icon: Search,
+    desc: "Find any tab you have open right now without scrubbing through 200 favicons in the tab bar.",
+  },
+  {
+    title: "Virtual groups & tags",
+    icon: PanelsTopLeft,
+    desc: "Cluster tabs by project, color, or custom tags — without committing to a heavy folder structure.",
+  },
+  {
+    title: "Duplicate detection",
+    icon: Copy,
+    desc: "Spot and close duplicate tabs across windows in one click. Your fan will thank you.",
+  },
+  {
+    title: "Import & export sessions",
+    icon: ArrowLeftRight,
+    desc: "Back up, share, or migrate sessions as portable JSON. Nothing is locked inside Tab Vault.",
+  },
   {
     title: "Condense All — one click",
     icon: Layers,
     desc: "A single button instantly closes every tab and files them into a titled, dated workspace.",
-  },
-  {
-    title: "Lightning-fast search",
-    icon: Search,
-    desc: "Fuzzy search across 500+ saved tabs with instant highlighting. ⌘K from anywhere.",
-  },
-  {
-    title: "Named workspaces",
-    icon: Cloud,
-    desc: "Group tabs into projects like “Taxes 2026” or “Wedding Planning.” Open or archive entire sets.",
   },
   {
     title: "Freeze inactive tabs",
@@ -178,62 +226,6 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="compare" className="container mx-auto py-16">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Tab Vault Pro vs. the old way</h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            The basics you expect from a tab manager — plus the power features that actually keep 500 tabs sane.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border-2 border-[hsl(var(--primary))] bg-card p-8 shadow-[var(--shadow-card)]">
-            <div className="mb-6 flex items-center gap-3">
-              <span
-                className="inline-flex h-9 items-center rounded-full px-3 text-xs font-semibold text-[hsl(var(--brand-foreground))]"
-                style={{ background: "var(--gradient-hero)" }}
-              >
-                Tab Vault Pro
-              </span>
-              <span className="text-sm text-muted-foreground">Power features</span>
-            </div>
-            <ul className="space-y-4 text-sm">
-              {[
-                "Google Drive sync — access sessions on any device",
-                "Full bookmark manager with tags and deduplication",
-                "Tab health dashboard with 30-day trends",
-                "Fuzzy search, automation rules, and smart views",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-3">
-                  <Check className="mt-0.5 h-5 w-5 flex-none text-[hsl(var(--primary))]" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="inline-flex h-9 items-center rounded-full border border-border bg-secondary px-3 text-xs font-semibold text-muted-foreground">
-                Other tab managers
-              </span>
-              <span className="text-sm text-muted-foreground">The basics</span>
-            </div>
-            <ul className="space-y-4 text-sm">
-              {[
-                "Save and restore sessions locally",
-                "Search across all open tabs",
-                "Virtual groups and tags",
-                "Duplicate detection and closing",
-                "Import and export sessions",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-3 text-muted-foreground">
-                  <X className="mt-0.5 h-5 w-5 flex-none opacity-60" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       <section id="pricing" className="container mx-auto py-16">
         <div className="text-center">
