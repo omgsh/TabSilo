@@ -280,11 +280,11 @@ const Index = () => {
               </ul>
               <button
                 type="button"
-                disabled
-                className={`mt-8 w-full cursor-not-allowed rounded-xl px-4 py-3 text-sm font-semibold opacity-60 ${
+                onClick={downloadExtension}
+                className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
                   t.highlight
-                    ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)]"
-                    : "border border-border bg-secondary"
+                    ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
+                    : "border border-border bg-secondary hover:bg-secondary/70"
                 }`}
                 style={t.highlight ? { background: "var(--gradient-hero)" } : undefined}
               >
