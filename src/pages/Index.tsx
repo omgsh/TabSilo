@@ -174,7 +174,7 @@ const Index = () => {
                 <span className="h-3 w-3 rounded-full bg-[hsl(140_60%_55%)]" />
               </div>
               <div className="ml-3 flex-1 truncate rounded-md bg-secondary px-3 py-1 text-xs text-muted-foreground">
-                chrome-extension://tab-vault-pro/vault.html
+                chrome-extension://tab-silo/vault.html
               </div>
             </div>
             <div className="space-y-3 pt-4">
