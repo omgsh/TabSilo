@@ -131,7 +131,7 @@ const Index = () => {
         </nav>
         <button
           type="button"
-          onClick={downloadExtension}
+          onClick={() => downloadExtension()}
           className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
           style={{ background: "var(--gradient-hero)" }}
         >
@@ -161,7 +161,7 @@ const Index = () => {
           <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={downloadExtension}
+              onClick={() => downloadExtension()}
               className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
