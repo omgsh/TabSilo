@@ -59,7 +59,7 @@ const features = [
   {
     title: "Import & export sessions",
     icon: ArrowLeftRight,
-    desc: "Back up, share, or migrate sessions as portable JSON. Nothing is locked inside Tab Vault.",
+    desc: "Back up, share, or migrate sessions as portable JSON. Nothing is locked inside Tab Silo.",
   },
   {
     title: "Condense All — one click",
@@ -109,8 +109,8 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground" style={{ backgroundImage: "var(--gradient-soft)" }}>
       <header className="container mx-auto flex items-center justify-between py-6">
         <div className="flex items-center gap-3">
-          <img src={iconUrl} alt="Tab Vault Pro logo" width={36} height={36} className="rounded-lg" />
-          <span className="text-lg font-semibold tracking-tight">Tab Vault Pro</span>
+          <img src={iconUrl} alt="Tab Silo logo" width={36} height={36} className="rounded-lg" />
+          <span className="text-lg font-semibold tracking-tight">Tab Silo</span>
         </div>
         <nav className="hidden gap-8 text-sm text-muted-foreground md:flex">
           <a href="#features" className="hover:text-foreground">Features</a>
@@ -142,7 +142,7 @@ const Index = () => {
             </span>
           </h1>
           <p className="mt-6 max-w-lg text-lg text-muted-foreground">
-            Tab Vault Pro condenses every open tab into a named, searchable workspace —
+            Tab Silo condenses every open tab into a named, searchable workspace —
             freeing memory, syncing across devices, and giving Chrome its speed back.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -284,10 +284,10 @@ const Index = () => {
         <h2 className="text-3xl font-bold tracking-tight">FAQ</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {[
-            { q: "Does Tab Vault Pro upload my browsing data?", a: "Free tier is 100% local. Pro stores an encrypted copy in the cloud only so it can sync across your devices." },
+            { q: "Does Tab Silo upload my browsing data?", a: "Free tier is 100% local. Pro stores an encrypted copy in the cloud only so it can sync across your devices." },
             { q: "How is it different from OneTab?", a: "Same core idea — condense tabs into a list — plus named workspaces, fuzzy search, freeze, and cross-device sync." },
             { q: "What happens at the 20-tab limit?", a: "On Free, the oldest workspaces are read-only once you pass 20 saved tabs. Upgrade to Pro or Lifetime for unlimited storage." },
-            { q: "Which browsers are supported?", a: "Tab Vault Pro works on Chrome, Edge, Brave, Arc, and Opera — anywhere Chrome extensions run." },
+            { q: "Which browsers are supported?", a: "Tab Silo works on Chrome, Edge, Brave, Arc, and Opera — anywhere Chrome extensions run." },
           ].map((f) => (
             <div key={f.q} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="font-semibold">{f.q}</h3>
