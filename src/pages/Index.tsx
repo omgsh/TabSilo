@@ -239,7 +239,7 @@ const Index = () => {
           {tiers.map((t) => (
             <div
               key={t.name}
-              className={`relative rounded-2xl border bg-card p-8 shadow-[var(--shadow-card)] ${
+              className={`relative flex flex-col rounded-2xl border bg-card p-8 shadow-[var(--shadow-card)] ${
                 t.highlight ? "border-transparent ring-2 ring-[hsl(var(--primary))]" : "border-border"
               }`}
             >
@@ -266,7 +266,7 @@ const Index = () => {
               </ul>
               <a
                 href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer"
-                className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
+                className={`mt-8 block w-full rounded-xl px-4 py-3 text-center text-sm font-semibold transition ${
                   t.highlight
                     ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
                     : "border border-border bg-secondary hover:bg-secondary/70"
