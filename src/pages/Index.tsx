@@ -102,8 +102,8 @@ const tiers = [
 ];
 
 const Index = () => {
-  const downloadExtension = () => {
-    fetch("/tabvault.zip")
+  const downloadExtension = (file: string = "/tabvault.zip", filename: string = "tabvault.zip") => {
+    fetch(file)
       .then((res) => {
         if (!res.ok) throw new Error(`Download failed: ${res.status}`);
         return res.blob();
@@ -111,7 +111,7 @@ const Index = () => {
       .then((blob) => {
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "tabvault.zip";
+        a.download = filename;
         a.click();
         URL.revokeObjectURL(a.href);
       })
@@ -131,7 +131,7 @@ const Index = () => {
         </nav>
         <button
           type="button"
-          onClick={downloadExtension}
+          onClick={() => downloadExtension()}
           className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
           style={{ background: "var(--gradient-hero)" }}
         >
@@ -161,7 +161,7 @@ const Index = () => {
           <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={downloadExtension}
+              onClick={() => downloadExtension()}
               className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
@@ -280,7 +280,11 @@ const Index = () => {
               </ul>
               <button
                 type="button"
-                onClick={downloadExtension}
+                onClick={() =>
+                  t.name === "Lifetime"
+                    ? downloadExtension("/tabvault-pro.zip", "tabvault-pro-lifetime.zip")
+                    : downloadExtension()
+                }
                 className={`mt-8 w-full rounded-xl px-4 py-3 text-sm font-semibold transition ${
                   t.highlight
                     ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
