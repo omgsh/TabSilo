@@ -101,21 +101,8 @@ const tiers = [
   },
 ];
 
-const downloadExtension = () => {
-  fetch("/tabsilo.zip")
-    .then((res) => {
-      if (!res.ok) throw new Error(`Download failed: ${res.status}`);
-      return res.blob();
-    })
-    .then((blob) => {
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "tabsilo.zip";
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch((err) => alert(err.message));
-};
+const CHROME_STORE_URL =
+  "https://chromewebstore.google.com/detail/tab-silo-%E2%80%94-tab-manager-su/mibhobkbekjjdfdlpgcbnbippoigeocc";
 
 const Index = () => {
   return (
@@ -130,13 +117,15 @@ const Index = () => {
           <a href="#pricing" className="hover:text-foreground">Pricing</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </nav>
-        <button
-          onClick={downloadExtension}
+        <a
+          href={CHROME_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-lg px-4 py-2 text-sm font-medium text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:opacity-95"
           style={{ background: "var(--gradient-hero)" }}
         >
           Download
-        </button>
+        </a>
       </header>
 
       <section className="container mx-auto grid gap-12 py-20 md:grid-cols-2 md:items-center md:py-28">
@@ -159,13 +148,15 @@ const Index = () => {
             freeing memory, syncing across devices, and giving Chrome its speed back.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <button
-              onClick={downloadExtension}
+            <a
+              href={CHROME_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-xl px-6 py-3 text-base font-semibold text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] transition hover:scale-[1.02]"
               style={{ background: "var(--gradient-hero)" }}
             >
               Download free
-            </button>
+            </a>
             <a
               href="#pricing"
               className="rounded-xl border border-border bg-card px-6 py-3 text-base font-semibold transition hover:bg-secondary"
@@ -277,8 +268,10 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={downloadExtension}
+              <a
+                href={CHROME_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-8 block w-full rounded-xl px-4 py-3 text-center text-sm font-semibold transition ${
                   t.highlight
                     ? "text-[hsl(var(--brand-foreground))] shadow-[var(--shadow-elegant)] hover:scale-[1.02]"
@@ -287,7 +280,7 @@ const Index = () => {
                 style={t.highlight ? { background: "var(--gradient-hero)" } : undefined}
               >
                 {t.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>
